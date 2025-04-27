@@ -150,67 +150,32 @@ export default function LandingPage() {
             </Card>
           </div>
         </div>
-      </section>
+        <section className="py-12 sm:py-16 bg-white border-b border-gray-200">
+          
+  <div className="container px-4 sm:px-6 mx-auto">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+      <div className="space-y-6">
+        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl text-gray-900">
+          Unlock India’s Constituency-Level Voter Data
+        </h1>
+        <p className="max-w-prose text-gray-600 text-base sm:text-lg md:text-xl">
+          Pure-random sampling frames, pre-parsed and ready for your market research, political analysis, and outreach campaigns.
+        </p>
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Link href="/download-sample">
+            <Button className="w-full sm:w-auto bg-[#0070f3] text-white hover:bg-[#0056d1] transform hover:scale-105 transition">
+              See a Live Sample <ArrowRight size={18} />
+            </Button>
+          </Link>
+        </div>
+      </div>
+      <div className="hidden md:flex items-center justify-center p-6 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg shadow-inner">
+        <Database className="w-40 h-40 opacity-20" />
+      </div>
+    </div>
+  </div>
+</section>
 
-      {/* Data Preview Section */}
-       <section className="w-full py-12 md:py-20 lg:py-28 bg-white">
-         <div className="container px-4 md:px-6 mx-auto">
-           <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
-             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-gray-900">Preview the Data Granularity</h2>
-             <p className="max-w-[700px] text-gray-600 md:text-lg">
-               Get a glimpse of the detailed voter attributes available within the database. *(Sample data below)*
-             </p>
-           </div>
-           <Card className="overflow-hidden shadow-md">
-            <CardContent className="p-0">
-             <Table>
-               <TableHeader>
-                 <TableRow className="bg-gray-100 hover:bg-gray-100">
-                   <TableHead className="w-[150px] text-gray-700 font-semibold">Voter ID</TableHead>
-                   <TableHead className="text-gray-700 font-semibold">Constituency</TableHead>
-                   <TableHead className="text-gray-700 font-semibold">Age Group</TableHead>
-                   <TableHead className="text-gray-700 font-semibold">Likely Affiliation</TableHead>
-                   <TableHead className="text-right text-gray-700 font-semibold">Last Turnout</TableHead>
-                 </TableRow>
-               </TableHeader>
-               <TableBody>
-                 <TableRow className="hover:bg-gray-100 transition-colors duration-200">
-                   <TableCell className="font-medium">VTR7401</TableCell>
-                   <TableCell>North Central</TableCell>
-                   <TableCell>35-44</TableCell>
-                   <TableCell>Party B</TableCell>
-                   <TableCell className="text-right">2023 General</TableCell>
-                 </TableRow>
-                 <TableRow className="hover:bg-gray-100 transition-colors duration-200">
-                   <TableCell className="font-medium">VTR8823</TableCell>
-                   <TableCell>Coastal East</TableCell>
-                   <TableCell>18-24</TableCell>
-                   <TableCell>Undecided</TableCell>
-                   <TableCell className="text-right">None</TableCell>
-                 </TableRow>
-                 <TableRow className="hover:bg-gray-100 transition-colors duration-200">
-                   <TableCell className="font-medium">VTR5150</TableCell>
-                   <TableCell>Western Plains</TableCell>
-                   <TableCell>55-64</TableCell>
-                   <TableCell>Party A</TableCell>
-                   <TableCell className="text-right">2023 General</TableCell>
-                 </TableRow>
-                  <TableRow className="hover:bg-gray-100 transition-colors duration-200">
-                   <TableCell className="font-medium">VTR6009</TableCell>
-                   <TableCell>North Central</TableCell>
-                   <TableCell>45-54</TableCell>
-                   <TableCell>Party B</TableCell>
-                   <TableCell className="text-right">2021 Primary</TableCell>
-                 </TableRow>
-               </TableBody>
-             </Table>
-             </CardContent>
-              <CardFooter className="p-4 bg-gray-50 text-center">
-                <p className="text-sm text-gray-600 w-full">This is a small sample. Full datasets include many more fields and voters per constituency.</p>
-              </CardFooter>
-           </Card>
-         </div>
-       </section>
 
       {/* Call to Action Section */}
       <section className="w-full py-16 md:py-24 lg:py-32 bg-[#0070f3]">
