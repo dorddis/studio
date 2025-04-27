@@ -8,14 +8,14 @@ body {
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    --background: 0 0% 98%; /* Off-white */
+    --foreground: 0 0% 14%; /* Dark charcoal */
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 217 91.2% 59.8%; /* #0070f3 */
+    --primary-foreground: 0 0% 100%;
     --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%;
     --muted: 0 0% 96.1%;
@@ -84,5 +84,32 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Poppins', sans-serif;
   }
+}
+
+/* Micro Animations */
+.scale-up-on-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.scale-up-on-hover:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.fade-in-slide-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-in-slide-up.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.highlight-on-hover tbody tr:hover {
+  background-color: hsl(var(--accent));
+  transition: background-color 0.3s ease;
 }
