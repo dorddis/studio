@@ -227,7 +227,7 @@ export default function LandingPage() {
                   <a> See a Live Sample </a>
                </Button>
              </Link>
-             {/* --- Updated Contact Sales Button with Link and Transitions --- */}
+              --- Updated Contact Sales Button with Link and Transitions ---
               <Link href="/contact-sales" passHref legacyBehavior>
                 <Button asChild size="lg" className="bg-white text-[#0070f3] hover:bg-gray-100 hover:scale-[1.03] hover:shadow-md transition-transform duration-200 ease-in-out flex-1">
                   <a> Contact Sales </a>
@@ -235,7 +235,7 @@ export default function LandingPage() {
               </Link>
           </div>
            <p className="text-xs text-blue-200 mt-4">
-             {/* TODO: Add documentation link */} 
+              TODO: Add documentation link 
               Or explore our <a href="#" className="underline underline-offset-2 hover:text-white">detailed documentation</a>.
             </p>
         </div>
