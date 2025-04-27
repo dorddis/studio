@@ -2,7 +2,7 @@ import Link from 'next/link'; // Import Link
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
-import { CheckCircle, Database, Target, Zap, Map, Shuffle, Package, ArrowRight, BarChart, Users, LocateFixed } from 'lucide-react';
+import { CheckCircle, Database, Target, Zap, Map, Shuffle, Package, ArrowRight, BarChart, Users, LocateFixed, Calendar } from 'lucide-react';
 import { Header } from "@/components/header";
 
 export default function LandingPage() {
@@ -27,14 +27,14 @@ export default function LandingPage() {
                   <Link href="/download-sample" passHref legacyBehavior>
                     <Button asChild size="lg" className="bg-[#0070f3] text-white hover:bg-[#0056d1] hover:scale-[1.03] hover:shadow-md transition-transform duration-200 ease-in-out flex items-center gap-2">
                       <a>
-                         See a Live Sample <ArrowRight size={18} />
+                        See a Live Sample <ArrowRight size={18} />
                       </a>
                     </Button>
                   </Link>
                 </div>
               </div>
               <div className="flex items-center justify-center p-6 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg shadow-inner">
-                 <Database size={250} className="text-[#0070f3] opacity-20" />
+                <Database size={250} className="text-[#0070f3] opacity-20" />
               </div>
             </div>
           </div>
@@ -216,54 +216,28 @@ export default function LandingPage() {
          </section>
 
         {/* Call to Action Section */}
-        {/* <section className="w-full py-16 md:py-24 lg:py-32 bg-[#0070f3]">
-          <div className="container grid items-center justify-center gap-6 px-4 text-center md:px-6 mx-auto">
-            <div className="space-y-4">
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight text-white">Ready to Elevate Your Research?</h2>
-              <p className="mx-auto max-w-[650px] text-blue-100 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Access the most comprehensive assembly-constituency voter data available. Explore a live sample or request a personalized consultation.
+        <section className="w-full py-16 md:py-24 lg:py-32 bg-gradient-to-br from-[#0070f3] to-[#0056d1]">
+          <div className="container px-4 md:px-6 mx-auto">
+            <div className="flex flex-col items-center text-center space-y-4">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-white">
+                Ready to Transform Your Research?
+              </h2>
+              <p className="max-w-[600px] text-blue-100 md:text-xl">
+                Schedule a consultation with our experts to discuss your specific needs and discover how our voter data can power your insights.
               </p>
-            </div>
-            <div className="mx-auto w-full max-w-md flex flex-col sm:flex-row gap-4 justify-center">
-               <Link href="/download-sample" passHref legacyBehavior>
-                 <Button asChild size="lg" className="bg-white text-[#0070f3] hover:bg-gray-100 hover:scale-[1.03] hover:shadow-md transition-transform duration-200 ease-in-out flex-1">
-                    <a> See a Live Sample </a>
-                 </Button>
-               </Link>
-                --- Updated Contact Sales Button with Link and Transitions ---
-                <Link href="/contact-sales" passHref legacyBehavior>
-                  <Button asChild size="lg" className="bg-white text-[#0070f3] hover:bg-gray-100 hover:scale-[1.03] hover:shadow-md transition-transform duration-200 ease-in-out flex-1">
-                    <a> Contact Sales </a>
+              <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                <Link href="/contact-sales">
+                  <Button size="lg" className="bg-white text-[#0070f3] hover:bg-blue-50 hover:scale-[1.03] transition-transform duration-200 ease-in-out">
+                    <Calendar className="mr-2 h-5 w-5" />
+                    Book a Consultation
                   </Button>
                 </Link>
-            </div>
-             <p className="text-xs text-blue-200 mt-4">
-                TODO: Add documentation link 
-                Or explore our <a href="#" className="underline underline-offset-2 hover:text-white">detailed documentation</a>.
-              </p>
-          </div>
-        </section> */}
-        
-        <section className="py-12 sm:py-16 bg-white border-b border-gray-200">
-          <div className="container px-4 sm:px-6 mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-              <div className="space-y-6">
-                <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl text-gray-900">
-                  Unlock India's Constituency-Level Voter Data
-                </h1>
-                <p className="max-w-prose text-gray-600 text-base sm:text-lg md:text-xl">
-                  Pure-random sampling frames, pre-parsed and ready for your market research, political analysis, and outreach campaigns.
-                </p>
-                <div className="flex flex-col gap-3 sm:flex-row">
-                  <Link href="/download-sample">
-                    <Button className="w-full sm:w-auto bg-[#0070f3] text-white hover:bg-[#0056d1] transform hover:scale-105 transition">
-                      See a Live Sample <ArrowRight size={18} />
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-              <div className="hidden md:flex items-center justify-center p-6 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg shadow-inner">
-                <Database className="w-40 h-40 opacity-20" />
+                <Link href="/download-sample">
+                  <Button size="lg" variant="outline" className="bg-transparent text-white border-white hover:bg-white/10 hover:scale-[1.03] transition-transform duration-200 ease-in-out">
+                    <Database className="mr-2 h-5 w-5" />
+                    View Sample Data
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

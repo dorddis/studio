@@ -41,12 +41,12 @@ export function Header() {
 
           {/* Contact Sales Button */}
           <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
             className="hidden md:block"
           >
-            <Link href="https://calendly.com/your-calendly-link" target="_blank" rel="noopener noreferrer">
+            <Link href="/contact-sales" className="group">
               <Button className="bg-[#0070f3] text-white hover:bg-[#0056d1] group">
                 <Calendar className="mr-2 h-4 w-4" />
                 Contact Sales
@@ -89,14 +89,12 @@ export function Header() {
               </Link>
             </nav>
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
               <Link
-                href="https://calendly.com/your-calendly-link"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/contact-sales"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <Button className="w-full bg-[#0070f3] text-white hover:bg-[#0056d1] group">
