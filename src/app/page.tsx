@@ -4,6 +4,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { CheckCircle, Database, Target, Zap, Map, Shuffle, Package, ArrowRight, BarChart, Users, LocateFixed, Calendar } from 'lucide-react';
 import { Header } from "@/components/header";
+import Image from 'next/image';
 
 export default function LandingPage() {
   return (
@@ -11,19 +12,19 @@ export default function LandingPage() {
       <Header />
       <main className="pt-16">
         {/* Hero Section */}
-        <section className="w-full py-20 md:py-28 lg:py-36 xl:py-48 bg-white border-b border-gray-200">
+        <section className="w-full py-8 sm:py-12 md:py-16 lg:py-20 bg-white border-b border-gray-200">
           <div className="container px-4 md:px-6 mx-auto">
             <div className="grid gap-8 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_650px]">
-              <div className="flex flex-col justify-center space-y-6">
+              <div className="flex flex-col justify-center space-y-6 order-2 lg:order-1">
                 <div className="space-y-3">
-                  <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-gray-900">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold tracking-tighter text-gray-900">
                     Unlock India's Constituency-Level Voter Data
                   </h1>
-                  <p className="max-w-[650px] text-gray-600 md:text-xl">
+                  <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-[650px]">
                     Pure-random sampling frames, pre-parsed and ready for your market research, political analysis, and outreach campaigns. Access audit-grade data extracted directly from official sources.
                   </p>
                 </div>
-                <div className="flex flex-col gap-3 min-[400px]:flex-row">
+                <div className="flex flex-col sm:flex-row gap-4">
                   <Link href="/download-sample" passHref legacyBehavior>
                     <Button asChild size="lg" className="bg-[#0070f3] text-white hover:bg-[#0056d1] hover:scale-[1.03] hover:shadow-md transition-transform duration-200 ease-in-out flex items-center gap-2">
                       <a>
@@ -33,48 +34,62 @@ export default function LandingPage() {
                   </Link>
                 </div>
               </div>
-              <div className="flex items-center justify-center p-6 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg shadow-inner">
-                <Database size={250} className="text-[#0070f3] opacity-20" />
+              <div className="relative h-[250px] sm:h-[350px] md:h-[450px] lg:h-[500px] rounded-lg overflow-hidden shadow-lg order-1 lg:order-2">
+                <Image
+                  src="/images/election_results.png"
+                  alt="Election Results Analysis"
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
               </div>
             </div>
           </div>
         </section>
 
         {/* Features Section */}
-        <section className="w-full py-16 md:py-24 lg:py-32 bg-gray-50">
+        <section className="w-full py-12 md:py-20 lg:py-28 bg-gray-50">
           <div className="container px-4 md:px-6 mx-auto">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-gray-900">The Foundation for Reliable Insights</h2>
-              <p className="max-w-[750px] text-gray-600 md:text-lg">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter text-gray-900">The Foundation for Reliable Insights</h2>
+              <p className="text-base sm:text-lg text-gray-600 max-w-[750px]">
                 Our meticulously prepared voter database provides the accuracy and coverage you need.
               </p>
             </div>
-            <div className="mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
-              <Card className="shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              <Card className="shadow-sm hover:shadow-lg transition-shadow duration-300">
                 <CardHeader className="flex flex-row items-center gap-4 pb-4">
-                   <div className="bg-[#0070f3] p-3 rounded-full"> <Map size={24} className="text-white" /></div>
-                  <CardTitle className="text-xl font-semibold text-gray-900">Nationwide Coverage</CardTitle>
+                  <div className="bg-[#0070f3] p-3 rounded-full">
+                    <Map size={24} className="text-white" />
+                  </div>
+                  <CardTitle className="text-lg sm:text-xl font-semibold text-gray-900">Nationwide Coverage</CardTitle>
                 </CardHeader>
-                <CardContent className="flex-grow">
-                  <p className="text-gray-600">Access data across all 543 Lok Sabha & 4,122 Assembly Constituencies. Unparalleled reach for comprehensive analysis.</p>
+                <CardContent>
+                  <p className="text-sm sm:text-base text-gray-600">Access data across all 543 Lok Sabha & 4,122 Assembly Constituencies. Unparalleled reach for comprehensive analysis.</p>
                 </CardContent>
               </Card>
-              <Card className="shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col">
+              <Card className="shadow-sm hover:shadow-lg transition-shadow duration-300">
                 <CardHeader className="flex flex-row items-center gap-4 pb-4">
-                   <div className="bg-[#0070f3] p-3 rounded-full"> <Shuffle size={24} className="text-white" /></div>
-                  <CardTitle className="text-xl font-semibold text-gray-900">True Random Sampling</CardTitle>
+                  <div className="bg-[#0070f3] p-3 rounded-full">
+                    <Shuffle size={24} className="text-white" />
+                  </div>
+                  <CardTitle className="text-lg sm:text-xl font-semibold text-gray-900">True Random Sampling</CardTitle>
                 </CardHeader>
-                <CardContent className="flex-grow">
-                  <p className="text-gray-600">Extracted directly from official electoral roll PDFs for audit-grade rigor. Ensure statistically sound sampling frames.</p>
+                <CardContent>
+                  <p className="text-sm sm:text-base text-gray-600">Extracted directly from official electoral roll PDFs for audit-grade rigor. Ensure statistically sound sampling frames.</p>
                 </CardContent>
               </Card>
-               <Card className="shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col">
+              <Card className="shadow-sm hover:shadow-lg transition-shadow duration-300">
                 <CardHeader className="flex flex-row items-center gap-4 pb-4">
-                   <div className="bg-[#0070f3] p-3 rounded-full"> <Package size={24} className="text-white" /></div>
-                  <CardTitle className="text-xl font-semibold text-gray-900">Flexible Bundles</CardTitle>
+                  <div className="bg-[#0070f3] p-3 rounded-full">
+                    <Package size={24} className="text-white" />
+                  </div>
+                  <CardTitle className="text-lg sm:text-xl font-semibold text-gray-900">Flexible Bundles</CardTitle>
                 </CardHeader>
-                <CardContent className="flex-grow">
-                  <p className="text-gray-600">Choose exactly what you need: state-level, specific constituency, or district-level packs available.</p>
+                <CardContent>
+                  <p className="text-sm sm:text-base text-gray-600">Choose exactly what you need: state-level, specific constituency, or district-level packs available.</p>
                 </CardContent>
               </Card>
             </div>
@@ -216,13 +231,13 @@ export default function LandingPage() {
          </section>
 
         {/* Call to Action Section */}
-        <section className="w-full py-16 md:py-24 lg:py-32 bg-gradient-to-br from-[#0070f3] to-[#0056d1]">
+        <section className="w-full py-12 md:py-20 lg:py-28 bg-gradient-to-br from-[#0070f3] to-[#0056d1]">
           <div className="container px-4 md:px-6 mx-auto">
             <div className="flex flex-col items-center text-center space-y-4">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-white">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter text-white">
                 Ready to Transform Your Research?
               </h2>
-              <p className="max-w-[600px] text-blue-100 md:text-xl">
+              <p className="text-base sm:text-lg text-blue-100 max-w-[600px]">
                 Schedule a consultation with our experts to discuss your specific needs and discover how our voter data can power your insights.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mt-8">
@@ -233,7 +248,7 @@ export default function LandingPage() {
                   </Button>
                 </Link>
                 <Link href="/download-sample">
-                  <Button size="lg" variant="outline" className="bg-transparent text-white border-white hover:bg-white/10 hover:scale-[1.03] transition-transform duration-200 ease-in-out">
+                  <Button size="lg" variant="outline" className="bg-transparent text-white border-white hover:bg-white/10 hover:text-white hover:scale-[1.03] transition-transform duration-200 ease-in-out">
                     <Database className="mr-2 h-5 w-5" />
                     View Sample Data
                   </Button>
