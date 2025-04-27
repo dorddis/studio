@@ -231,24 +231,31 @@ export default function LandingPage() {
          </section>
 
         {/* Call to Action Section */}
-        <section className="w-full py-12 md:py-20 lg:py-28 bg-gradient-to-br from-[#0070f3] to-[#0056d1]">
-          <div className="container px-4 md:px-6 mx-auto">
-            <div className="flex flex-col items-center text-center space-y-4">
+        <section className="w-full py-12 md:py-20 lg:py-28 bg-[#0070f3]">
+          <div className="container px-4 md:px-6 mx-auto max-w-[600px]">
+            <div className="flex flex-col items-center text-center space-y-6">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter text-white">
                 Ready to Transform Your Research?
               </h2>
-              <p className="text-base sm:text-lg text-blue-100 max-w-[600px]">
+              <p className="text-base sm:text-lg text-white/90 max-w-[500px]">
                 Schedule a consultation with our experts to discuss your specific needs and discover how our voter data can power your insights.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                <Link href="/contact-sales">
-                  <Button size="lg" className="bg-white text-[#0070f3] hover:bg-blue-50 hover:scale-[1.03] transition-transform duration-200 ease-in-out">
+              <div className="flex flex-col w-full gap-4 mt-4">
+                <Link href="/contact-sales" className="w-full">
+                  <Button 
+                    size="lg" 
+                    className="w-full bg-white text-[#0070f3] hover:bg-blue-50 transition-colors duration-200 ease-in-out h-[52px] text-base"
+                  >
                     <Calendar className="mr-2 h-5 w-5" />
                     Book a Consultation
                   </Button>
                 </Link>
-                <Link href="/download-sample">
-                  <Button size="lg" variant="outline" className="bg-transparent text-white border-white hover:bg-white/10 hover:text-white hover:scale-[1.03] transition-transform duration-200 ease-in-out">
+                <Link href="/download-sample" className="w-full">
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="w-full bg-transparent text-white border-white hover:bg-white/10 hover:text-white transition-colors duration-200 ease-in-out h-[52px] text-base"
+                  >
                     <Database className="mr-2 h-5 w-5" />
                     View Sample Data
                   </Button>
