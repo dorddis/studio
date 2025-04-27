@@ -20,27 +20,11 @@ export default function AboutPage() {
               Our platform leverages automated extraction pipelines and secure storage to convert millions of PDF pages into clean, structured data. By making this resource accessible, we empower research firms to focus on what they do best—crafting insights—rather than wrestling with manual data wrangling. Every record we serve supports more reliable conclusions, stronger client relationships, and higher project valuations.
             </p>
             <p className="text-gray-700">
-              At VoterData Insights, we believe that better data leads to better decisions—across campaigns, consumer studies, and policy research. We’re proud to fuel responsible research with technology designed for social good. Thank you for partnering with us on this mission: together, we’re raising the bar for data quality and driving positive impact in communities nationwide.
+              At VoterData Insights, we believe that better data leads to better decisions—across campaigns, consumer studies, and policy research. We're proud to fuel responsible research with technology designed for social good. Thank you for partnering with us on this mission: together, we're raising the bar for data quality and driving positive impact in communities nationwide.
             </p>
           </CardContent>
         </Card>
       </div>
-
-      {/* Footer (copied from LandingPage) */}
-      <footer className="py-8 md:py-10 border-t border-gray-200 bg-white">
-        <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-          <p>&copy; {new Date().getFullYear()} VoterData Insights. All rights reserved.</p>
-          <nav className="flex gap-4 sm:gap-6 mt-4 md:mt-0 flex-wrap justify-center">
-            <Link href="/about" className="hover:text-[#0070f3] hover:underline">About</Link>
-            <Link href="/" className="hover:text-[#0070f3] hover:underline">Home</Link>
-            <Link href="/download-sample" className="hover:text-[#0070f3] hover:underline">Live Sample</Link>
-            <Link href="/bundles" className="hover:text-[#0070f3] hover:underline">Bundles & Pricing</Link>
-            <Link href="/contact-sales" className="hover:text-[#0070f3] hover:underline">Contact Sales</Link>
-            <Link href="/privacy-policy" className="hover:text-[#0070f3] hover:underline">Privacy Policy</Link>
-            <Link href="/terms-of-service" className="hover:text-[#0070f3] hover:underline">Terms of Service</Link>
-          </nav>
-        </div>
-      </footer>
     </div>
   );
 }
