@@ -12,8 +12,50 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'VoterData Insights',
-  description: 'Assembly-Constituency Voter Database for Market Research',
+  title: {
+    default: 'VoterData Insights - Assembly-Constituency Voter Database',
+    template: '%s | VoterData Insights'
+  },
+  description: 'Access pure-random sampling frames from India\'s electoral data for market research, political analysis, and outreach campaigns.',
+  keywords: ['voter data', 'electoral database', 'constituency data', 'market research', 'political analysis', 'India elections'],
+  authors: [{ name: 'VoterData Insights' }],
+  creator: 'VoterData Insights',
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    url: 'https://voterdatainsights.com',
+    siteName: 'VoterData Insights',
+    title: 'VoterData Insights - Assembly-Constituency Voter Database',
+    description: 'Access pure-random sampling frames from India\'s electoral data for market research, political analysis, and outreach campaigns.',
+    images: [
+      {
+        url: '/images/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'VoterData Insights'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'VoterData Insights - Assembly-Constituency Voter Database',
+    description: 'Access pure-random sampling frames from India\'s electoral data for market research, political analysis, and outreach campaigns.',
+    images: ['/images/twitter-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code',
+  }
 };
 
 export default function RootLayout({

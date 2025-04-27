@@ -5,8 +5,12 @@ import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@
 import { CheckCircle, Database, Target, Zap, Map, Shuffle, Package, ArrowRight, BarChart, Users, LocateFixed, Calendar } from 'lucide-react';
 import { Header } from "@/components/header";
 import Image from 'next/image';
+import { fetchBlogPosts } from '@/lib/api';
+import { BlogCard } from '@/components/blog/BlogCard';
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const recentPosts = await fetchBlogPosts();
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 text-gray-800 font-sans">
       <Header />
@@ -229,6 +233,30 @@ export default function LandingPage() {
              </Card>
            </div>
          </section>
+
+        {/* Recent Blog Posts Section */}
+        <section className="w-full py-16 md:py-24 lg:py-32 bg-white">
+          <div className="container px-4 md:px-6 mx-auto">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-gray-900">Latest Insights</h2>
+              <p className="max-w-[750px] text-gray-600 md:text-lg">
+                Expert analysis on voter data, market research, and electoral trends
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {recentPosts.slice(0, 3).map((post) => (
+                <BlogCard key={post.id} post={post} />
+              ))}
+            </div>
+            <div className="mt-12 text-center">
+              <Link href="/blog">
+                <Button size="lg" className="bg-[#0070f3] text-white hover:bg-[#0056d1] transition-colors">
+                  View All Posts
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
 
         {/* Call to Action Section */}
         <section className="w-full py-12 md:py-20 lg:py-28 bg-[#0070f3]">
