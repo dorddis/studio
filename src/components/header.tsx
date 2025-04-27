@@ -29,6 +29,9 @@ export function Header() {
             <Link href="/contact" className="text-gray-600 hover:text-[#0070f3] transition-colors">
               Contact
             </Link>
+            <Link href="/api-docs" className="text-gray-600 hover:text-[#0070f3] transition-colors">
+              API Docs
+            </Link>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -86,6 +89,13 @@ export function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Contact
+              </Link>
+              <Link
+                href="/api-docs"
+                className="text-gray-600 hover:text-[#0070f3] transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                API Docs
               </Link>
             </nav>
             <motion.div
