@@ -1,381 +1,260 @@
-"use client";
+import Link from 'next/link'; // Import Link
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
+import { CheckCircle, Database, Target, Zap, Map, Shuffle, Package, ArrowRight, BarChart, Users, LocateFixed } from 'lucide-react';
 
-import React, {useState, useEffect, useRef, useCallback} from 'react';
-import {VoterDataRow, getVoterData} from '@/services/voter-data-api';
-import {Button} from '@/components/ui/button';
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
-import {Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow} from '@/components/ui/table';
-import {cn} from '@/lib/utils';
-import {useToast} from "@/hooks/use-toast";
-import { MapIcon, PackageIcon } from 'lucide-react';
-import Image from 'next/image';
-
-interface StateConstituency {
-  state: string;
-  constituencies: string[];
-}
-
-const stateConstituencies: StateConstituency[] = [
-  {
-    state: "Delhi",
-    constituencies: ["NERELA", "Burari", "Timarpur", "Adarsh Nagar", "Badli"],
-  },
-  {
-    state: "Haryana",
-    constituencies: ["Faridabad", "Gurugram", "Sonipat", "Panipat", "Karnal"],
-  },
-  {
-    state: "Punjab",
-    constituencies: ["Amritsar", "Ludhiana", "Jalandhar", "Patiala", "Bathinda"],
-  },
-  {
-    state: "Uttar Pradesh",
-    constituencies: ["Lucknow East", "Kanpur", "Varanasi", "Prayagraj", "Agra"],
-  },
-  {
-    state: "Maharashtra",
-    constituencies: ["Mumbai South", "Pune", "Nagpur", "Thane", "Nashik"],
-  },
-  {
-    state: "West Bengal",
-    constituencies: ["Kolkata North", "Bardhaman-Durgapur", "Howrah", "Medinipur", "Barrackpore"],
-  },
-  {
-    state: "Tamil Nadu",
-    constituencies: ["Chennai Central", "Coimbatore", "Madurai", "Tiruchirappalli", "Tirunelveli"],
-  },
-  {
-    state: "Karnataka",
-    constituencies: ["Bangalore Central", "Mysore", "Dharwad", "Gulbarga", "Belgaum"],
-  },
-  {
-    state: "Gujarat",
-    constituencies: ["Ahmedabad East", "Surat", "Vadodara", "Rajkot", "Bhavnagar"],
-  },
-  {
-    state: "Rajasthan",
-    constituencies: ["Jaipur", "Jodhpur", "Kota", "Ajmer", "Udaipur"],
-  },
-];
-
-const PricingCard = ({plan, price, description, onClick}: {plan: string, price: string, description: string, onClick: () => void}) => (
-  <Card className="scale-up-on-hover">
-    <CardHeader>
-      <CardTitle>{plan}</CardTitle>
-    </CardHeader>
-    <CardContent>
-      <p className="text-2xl font-bold mb-2">{price}</p>
-      <p className="text-muted-foreground mb-4">{description}</p>
-      <Button className="w-full" onClick={onClick}>Request Quote</Button>
-    </CardContent>
-  </Card>
-);
-
-const HowItWorksStep = ({step, description}: {step: number, description: string}) => (
-  <div className="flex flex-col items-center">
-    <div className="rounded-full bg-primary text-primary-foreground w-8 h-8 flex items-center justify-center mb-2">{step}</div>
-    <p className="text-center">{description}</p>
-  </div>
-);
-
-export default function Home() {
-  const [voterData, setVoterData] = useState<VoterDataRow[]>([]);
-  const [selectedState, setSelectedState] = useState<string>("Delhi");
-  const [selectedConstituency, setSelectedConstituency] = useState<string>("NERELA");
-  const [loading, setLoading] = useState(false);
-  const {toast} = useToast();
-  const tableRef = useRef(null);
-
-  const fetchData = useCallback(async () => {
-    setLoading(true);
-    try {
-      const data = await getVoterData(selectedState, selectedConstituency);
-      setVoterData(data);
-      toast({
-        title: "Data Loaded",
-        description: "Voter data fetched successfully.",
-      });
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to fetch voter data.",
-      });
-    } finally {
-      setLoading(false);
-    }
-  }, [selectedState, selectedConstituency, toast]);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
-  // Intersection Observer for fade-in-slide-up animation
-  const observer = useRef<IntersectionObserver | null>(null);
-  const sectionTitleRef = useRef<HTMLHeadingElement>(null);
-
-  useEffect(() => {
-    observer.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            sectionTitleRef.current?.classList.add('in-view');
-            observer.current?.disconnect();
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-      }
-    );
-
-    if (sectionTitleRef.current) {
-      observer.current.observe(sectionTitleRef.current);
-    }
-
-    return () => {
-      observer.current?.disconnect();
-    };
-  }, []);
-
-  const handleStateChange = (state: string) => {
-    setSelectedState(state);
-    // Reset constituency when state changes
-    const defaultConstituency = stateConstituencies.find((sc) => sc.state === state)?.constituencies[0] || "";
-    setSelectedConstituency(defaultConstituency);
-  };
-
-  const constituencies = stateConstituencies.find(sc => sc.state === selectedState)?.constituencies || [];
-
-  const handleLiveSampleClick = () => {
-      fetchData();
-  };
-
-  const handleRequestQuote = (plan: string) => {
-    toast({
-      title: "Request Sent",
-      description: `Quote requested for ${plan}. We will get back to you soon.`,
-    });
-  };
-
+export default function LandingPage() {
   return (
-    <div className="container mx-auto py-12">
-
+    <div className="flex flex-col min-h-screen bg-gray-50 text-gray-800 font-sans">
       {/* Hero Section */}
-      <section className="mb-16 text-center">
-        <h1 className="text-4xl font-bold mb-4">Unlock India’s Constituency-Level Voter Data</h1>
-        <p className="text-lg text-muted-foreground mb-8">Pure-random sampling frames, pre-parsed and ready for your research. Gain unparalleled insights with our meticulously curated database.</p>
-        <Button className="scale-up-on-hover" onClick={handleLiveSampleClick}>See a Live Sample</Button>
-      </section>
-
-      {/* Benefits of Pure Random Sampling */}
-      <section className="mb-16">
-        <h2 className="text-3xl font-semibold mb-8 fade-in-slide-up">The Power of True Random Sampling</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <p className="mb-4">In market research, the quality of your insights depends directly on the quality of your data. That's why we employ a <b>true random sampling</b> methodology. Unlike convenience sampling or other biased approaches, our data is extracted directly from official PDFs, ensuring every voter has an equal chance of being included.</p>
-            <p className="mb-4"><b>Why is this important?</b> Pure random sampling eliminates selection bias, providing a representative snapshot of voter demographics and preferences within each Assembly Constituency (AC). This rigor is essential for market research companies that need reliable, audit-grade data to inform their analyses and predictions.</p>
-              <p className="mb-4">
-                  With over 1 Million+ PDFs processed, our methodology guarantees the highest level of accuracy and validity.
-              </p>
-          </div>
-          <div>
-            <Image
-              src="https://picsum.photos/id/237/500/300"
-              alt="Random Sampling Illustration"
-              width={500}
-              height={300}
-              className="rounded-lg shadow-md"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Nationwide Coverage */}
-      <section className="mb-16">
-        <h2 className="text-3xl font-semibold mb-8 fade-in-slide-up">Nationwide Coverage: Data from Every Corner of India</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <p className="mb-4">Our database covers <b>all 543 Lok Sabha and 4,122 Assembly Constituencies (ACs)</b> across India. This comprehensive coverage allows you to conduct granular market research, identify regional trends, and understand voter behavior at a local level. Whether you're interested in urban centers, rural areas, or specific demographic segments, our data provides the insights you need.</p>
-            <p className="mb-4">By leveraging our nationwide coverage, market research firms can offer their clients unparalleled insights into the Indian electorate, enabling them to make data-driven decisions and gain a competitive edge.</p>
-          </div>
-          <div>
-            <Image
-              src="https://picsum.photos/id/42/500/300"
-              alt="Nationwide Coverage Map"
-              width={500}
-              height={300}
-              className="rounded-lg shadow-md"
-            />
+      <section className="w-full py-20 md:py-28 lg:py-36 xl:py-48 bg-white border-b border-gray-200">
+        <div className="container px-4 md:px-6 mx-auto">
+          <div className="grid gap-8 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_650px]">
+            <div className="flex flex-col justify-center space-y-6">
+              <div className="space-y-3">
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-gray-900">
+                  Unlock India’s Constituency-Level Voter Data
+                </h1>
+                <p className="max-w-[650px] text-gray-600 md:text-xl">
+                  Pure-random sampling frames, pre-parsed and ready for your market research, political analysis, and outreach campaigns. Access audit-grade data extracted directly from official sources.
+                </p>
+              </div>
+              <div className="flex flex-col gap-3 min-[400px]:flex-row">
+                <Link href="/download-sample" passHref legacyBehavior>
+                  <Button asChild size="lg" className="bg-[#0070f3] text-white hover:bg-[#0056d1] hover:scale-[1.03] hover:shadow-md transition-transform duration-200 ease-in-out flex items-center gap-2">
+                    <a>
+                       See a Live Sample <ArrowRight size={18} />
+                    </a>
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            <div className="flex items-center justify-center p-6 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg shadow-inner">
+               <Database size={250} className="text-[#0070f3] opacity-20" />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Flexible Bundles */}
-      <section className="mb-16">
-        <h2 className="text-3xl font-semibold mb-8 fade-in-slide-up">Flexible Bundles: Tailored Data Solutions for Your Unique Needs</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <p className="mb-4">We understand that market research companies have diverse data requirements. That's why we offer <b>flexible bundles</b> that allow you to choose the data you need, without paying for what you don't. Our bundles include:</p>
-            <ul className="list-disc pl-5 mb-4">
-              <li><b>State Bundles:</b> Access all ACs within a specific state.</li>
-              <li><b>District Bundles:</b> Access all ACs within a specific district.</li>
-              <li><b>Custom Bundles:</b> Select any 5 ACs of your choice.</li>
-            </ul>
-            <p className="mb-4">Our flexible bundles empower market research firms to optimize their data investments and focus on the insights that matter most to their clients.</p>
+      {/* Features Section */}
+      <section className="w-full py-16 md:py-24 lg:py-32 bg-gray-50">
+        <div className="container px-4 md:px-6 mx-auto">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-gray-900">The Foundation for Reliable Insights</h2>
+            <p className="max-w-[750px] text-gray-600 md:text-lg">
+              Our meticulously prepared voter database provides the accuracy and coverage you need.
+            </p>
           </div>
-          <div>
-            <Image
-              src="https://picsum.photos/id/63/500/300"
-              alt="Flexible Data Bundles"
-              width={500}
-              height={300}
-              className="rounded-lg shadow-md"
-            />
+          <div className="mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
+            <Card className="shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col">
+              <CardHeader className="flex flex-row items-center gap-4 pb-4">
+                 <div className="bg-[#0070f3] p-3 rounded-full"> <Map size={24} className="text-white" /></div>
+                <CardTitle className="text-xl font-semibold text-gray-900">Nationwide Coverage</CardTitle>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <p className="text-gray-600">Access data across all 543 Lok Sabha & 4,122 Assembly Constituencies. Unparalleled reach for comprehensive analysis.</p>
+              </CardContent>
+            </Card>
+            <Card className="shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col">
+              <CardHeader className="flex flex-row items-center gap-4 pb-4">
+                 <div className="bg-[#0070f3] p-3 rounded-full"> <Shuffle size={24} className="text-white" /></div>
+                <CardTitle className="text-xl font-semibold text-gray-900">True Random Sampling</CardTitle>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <p className="text-gray-600">Extracted directly from official electoral roll PDFs for audit-grade rigor. Ensure statistically sound sampling frames.</p>
+              </CardContent>
+            </Card>
+             <Card className="shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col">
+              <CardHeader className="flex flex-row items-center gap-4 pb-4">
+                 <div className="bg-[#0070f3] p-3 rounded-full"> <Package size={24} className="text-white" /></div>
+                <CardTitle className="text-xl font-semibold text-gray-900">Flexible Bundles</CardTitle>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <p className="text-gray-600">Choose exactly what you need: state-level, specific constituency, or district-level packs available.</p>
+              </CardContent>
+            </Card>
           </div>
-        </div>
-      </section>
-
-      {/* Assembly Constituency (AC) Explained */}
-      <section className="mb-16">
-        <h2 className="text-3xl font-semibold mb-8 fade-in-slide-up">Understanding Assembly Constituencies (ACs)</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <p className="mb-4">An <b>Assembly Constituency (AC)</b> is a specific geographic area within a state or union territory that elects a representative to the Legislative Assembly. These constituencies are the building blocks of Indian elections, and understanding their composition is crucial for accurate market research.</p>
-            <p className="mb-4">Our data is meticulously organized by AC, providing you with a clear and structured view of voter demographics, preferences, and trends at the local level. This granular data allows you to identify key insights and tailor your research to specific geographic areas.</p>
-          </div>
-          <div>
-            <Image
-              src="https://picsum.photos/id/94/500/300"
-              alt="Assembly Constituency Map"
-              width={500}
-              height={300}
-              className="rounded-lg shadow-md"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Live Data Preview Section */}
-      <section className="mb-16">
-        <h2 className="text-3xl font-semibold mb-8 fade-in-slide-up">Live Data Preview</h2>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-4">
-          <Select onValueChange={handleStateChange}>
-            <SelectTrigger className="w-[200px]">
-              <SelectValue placeholder="Select State" />
-            </SelectTrigger>
-            <SelectContent>
-              {stateConstituencies.map((sc) => (
-                <SelectItem key={sc.state} value={sc.state}>{sc.state}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Select onValueChange={setSelectedConstituency}>
-            <SelectTrigger className="w-[200px]">
-              <SelectValue placeholder="Select Constituency" />
-            </SelectTrigger>
-            <SelectContent>
-              {constituencies.map((constituency) => (
-                <SelectItem key={constituency} value={constituency}>{constituency}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="overflow-x-auto">
-          <Table ref={tableRef} className="min-w-full">
-            <TableCaption>Sample is blurred/truncated to protect full data integrity. The data displayed is a sample from the Assembly Constituency (AC), which represents a specific geographic area for elections.</TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead>AC No.</TableHead>
-                <TableHead>AC Name</TableHead>
-                <TableHead>Part No.</TableHead>
-                <TableHead>No. of Voters</TableHead>
-                <TableHead>Cumulative</TableHead>
-                <TableHead>Sample Index</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody className="highlight-on-hover">
-              {loading ? (
-                <TableRow>
-                  <TableCell colSpan={6} className="text-center">Loading data...</TableCell>
-                </TableRow>
-              ) : (
-                voterData.map((row, index) => (
-                  <TableRow key={index} className="transition-opacity duration-500 ease-in-out">
-                    <TableCell>{row.acNo}</TableCell>
-                    <TableCell>{row.acName}</TableCell>
-                    <TableCell>{row.partNo}</TableCell>
-                    <TableCell>{row.noOfVoters}</TableCell>
-                    <TableCell>{row.cumulative}</TableCell>
-                    <TableCell>{row.sampleIndex}</TableCell>
-                  </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
         </div>
       </section>
 
       {/* How It Works Section */}
-      <section className="mb-16">
-        <h2 className="text-3xl font-semibold mb-8 text-center fade-in-slide-up">How It Works</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <HowItWorksStep step={1} description="Download voter PDF →"/>
-          <HowItWorksStep step={2} description="Extract & normalize into MongoDB →"/>
-          <HowItWorksStep step={3} description="Organize by constituency & part →"/>
-          <HowItWorksStep step={4} description="Deliver via secure API or CSV"/>
+      <section className="w-full py-16 md:py-24 lg:py-32 bg-white">
+        <div className="container px-4 md:px-6 mx-auto">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-gray-900">From Official Rolls to Actionable Data</h2>
+            <p className="max-w-[750px] text-gray-600 md:text-lg">
+              Our process ensures data integrity and usability every step of the way.
+            </p>
+          </div>
+          <div className="relative grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+            <div className="absolute hidden md:block top-1/2 left-0 right-0 border-t-2 border-dashed border-gray-300 transform -translate-y-1/2 -z-10" style={{width: 'calc(100% - 10rem)', margin: '0 5rem'}}></div>
+            <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-lg shadow-sm relative">
+               <div className="absolute -top-4 bg-[#0070f3] text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">1</div>
+              <Zap size={40} className="text-[#0070f3] mb-4 mt-4"/>
+              <h3 className="text-lg font-semibold mb-2 text-gray-800">PDF Extraction</h3>
+              <p className="text-sm text-gray-600">Automated parsing of official, scanned electoral roll PDFs.</p>
+            </div>
+             <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-lg shadow-sm relative">
+              <div className="absolute -top-4 bg-[#0070f3] text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">2</div>
+              <CheckCircle size={40} className="text-[#0070f3] mb-4 mt-4"/>
+              <h3 className="text-lg font-semibold mb-2 text-gray-800">Data Cleansing & Validation</h3>
+              <p className="text-sm text-gray-600">Standardization, verification, and enrichment processes.</p>
+            </div>
+             <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-lg shadow-sm relative">
+              <div className="absolute -top-4 bg-[#0070f3] text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">3</div>
+              <Database size={40} className="text-[#0070f3] mb-4 mt-4"/>
+              <h3 className="text-lg font-semibold mb-2 text-gray-800">Delivery (API/CSV)</h3>
+              <p className="text-sm text-gray-600">Access data programmatically or via downloadable files.</p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Pricing & Bundles Section */}
-      <section className="mb-16">
-        <h2 className="text-3xl font-semibold mb-8 text-center fade-in-slide-up">Pricing &amp; Bundles</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <PricingCard
-            plan="State Bundle"
-            price="₹ 1 Lakh+"
-            description="Access all Assembly Constituencies (ACs) within a specific state. Pricing varies based on state population and data complexity. Access data extracted from 1,000,000+ PDFs."
-            onClick={() => handleRequestQuote("State Bundle")}
-          />
-          <PricingCard
-            plan="District Bundle"
-            price="₹ 50,000+"
-            description="Access all ACs within a specific district. Ideal for localized market research. "
-            onClick={() => handleRequestQuote("District Bundle")}
-          />
-          <PricingCard
-            plan="Custom Bundle"
-            price="₹ 25,000+"
-            description="Select any 5 ACs of your choice. Perfect for targeted research needs."
-            onClick={() => handleRequestQuote("Custom Bundle")}
-          />
-        </div>
-          <p className="text-muted-foreground text-center mt-4">
-              Note: Pricing is indicative and may vary. We process over 1 Million+ PDFs to generate this data. Contact us for a detailed quote based on your specific requirements.
-          </p>
-           <div className="flex justify-center mt-4">
-            <Image
-              src="https://picsum.photos/800/200" // Replace with your actual image URL
-              alt="Placeholder Image"
-              width={800} // Adjust as needed
-              height={200} // Adjust as needed
-              className="rounded-lg shadow-md"
-            />
+       {/* Use Cases Section */}
+      <section className="w-full py-16 md:py-24 lg:py-32 bg-gray-50">
+        <div className="container px-4 md:px-6 mx-auto">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
+             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-gray-900">Powering Diverse Research Needs</h2>
+            <p className="max-w-[750px] text-gray-600 md:text-lg">
+              See how market research firms, political strategists, and academic institutions leverage our data.
+            </p>
           </div>
+          <div className="mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
+            <Card className="border-l-4 border-[#0070f3] shadow-sm hover:shadow-md transition-shadow duration-300">
+              <CardHeader className="pb-3">
+                <BarChart size={28} className="text-[#0070f3] mb-2" />
+                <CardTitle className="text-lg font-semibold text-gray-900">Market Segmentation</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 text-sm">Identify and profile specific voter demographics within constituencies for targeted product or service research.</p>
+              </CardContent>
+            </Card>
+            <Card className="border-l-4 border-[#0070f3] shadow-sm hover:shadow-md transition-shadow duration-300">
+              <CardHeader className="pb-3">
+                 <Users size={28} className="text-[#0070f3] mb-2" />
+                <CardTitle className="text-lg font-semibold text-gray-900">Political Campaign Strategy</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 text-sm">Develop data-driven outreach plans, understand voter sentiment shifts, and optimize resource allocation.</p>
+              </CardContent>
+            </Card>
+             <Card className="border-l-4 border-[#0070f3] shadow-sm hover:shadow-md transition-shadow duration-300">
+              <CardHeader className="pb-3">
+                 <LocateFixed size={28} className="text-[#0070f3] mb-2" />
+                <CardTitle className="text-lg font-semibold text-gray-900">Geo-Spatial Analysis</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 text-sm">Correlate voter data with geographic factors, infrastructure development, or socio-economic indicators.</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Data Preview Section */}
+       <section className="w-full py-12 md:py-20 lg:py-28 bg-white">
+         <div className="container px-4 md:px-6 mx-auto">
+           <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
+             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-gray-900">Preview the Data Granularity</h2>
+             <p className="max-w-[700px] text-gray-600 md:text-lg">
+               Get a glimpse of the detailed voter attributes available within the database. *(Sample data below)*
+             </p>
+           </div>
+           <Card className="overflow-hidden shadow-md">
+            <CardContent className="p-0">
+             <Table>
+               <TableHeader>
+                 <TableRow className="bg-gray-100 hover:bg-gray-100">
+                   <TableHead className="w-[150px] text-gray-700 font-semibold">Voter ID</TableHead>
+                   <TableHead className="text-gray-700 font-semibold">Constituency</TableHead>
+                   <TableHead className="text-gray-700 font-semibold">Age Group</TableHead>
+                   <TableHead className="text-gray-700 font-semibold">Likely Affiliation</TableHead>
+                   <TableHead className="text-right text-gray-700 font-semibold">Last Turnout</TableHead>
+                 </TableRow>
+               </TableHeader>
+               <TableBody>
+                 <TableRow className="hover:bg-gray-100 transition-colors duration-200">
+                   <TableCell className="font-medium">VTR7401</TableCell>
+                   <TableCell>North Central</TableCell>
+                   <TableCell>35-44</TableCell>
+                   <TableCell>Party B</TableCell>
+                   <TableCell className="text-right">2023 General</TableCell>
+                 </TableRow>
+                 <TableRow className="hover:bg-gray-100 transition-colors duration-200">
+                   <TableCell className="font-medium">VTR8823</TableCell>
+                   <TableCell>Coastal East</TableCell>
+                   <TableCell>18-24</TableCell>
+                   <TableCell>Undecided</TableCell>
+                   <TableCell className="text-right">None</TableCell>
+                 </TableRow>
+                 <TableRow className="hover:bg-gray-100 transition-colors duration-200">
+                   <TableCell className="font-medium">VTR5150</TableCell>
+                   <TableCell>Western Plains</TableCell>
+                   <TableCell>55-64</TableCell>
+                   <TableCell>Party A</TableCell>
+                   <TableCell className="text-right">2023 General</TableCell>
+                 </TableRow>
+                  <TableRow className="hover:bg-gray-100 transition-colors duration-200">
+                   <TableCell className="font-medium">VTR6009</TableCell>
+                   <TableCell>North Central</TableCell>
+                   <TableCell>45-54</TableCell>
+                   <TableCell>Party B</TableCell>
+                   <TableCell className="text-right">2021 Primary</TableCell>
+                 </TableRow>
+               </TableBody>
+             </Table>
+             </CardContent>
+              <CardFooter className="p-4 bg-gray-50 text-center">
+                <p className="text-sm text-gray-600 w-full">This is a small sample. Full datasets include many more fields and voters per constituency.</p>
+              </CardFooter>
+           </Card>
+         </div>
+       </section>
+
+      {/* Call to Action Section */}
+      <section className="w-full py-16 md:py-24 lg:py-32 bg-[#0070f3]">
+        <div className="container grid items-center justify-center gap-6 px-4 text-center md:px-6 mx-auto">
+          <div className="space-y-4">
+            <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight text-white">Ready to Elevate Your Research?</h2>
+            <p className="mx-auto max-w-[650px] text-blue-100 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              Access the most comprehensive assembly-constituency voter data available. Explore a live sample or request a personalized consultation.
+            </p>
+          </div>
+          <div className="mx-auto w-full max-w-md flex flex-col sm:flex-row gap-4 justify-center">
+             <Link href="/download-sample" passHref legacyBehavior>
+               <Button asChild size="lg" className="bg-white text-[#0070f3] hover:bg-gray-100 hover:scale-[1.03] hover:shadow-md transition-transform duration-200 ease-in-out flex-1">
+                  <a> See a Live Sample </a>
+               </Button>
+             </Link>
+             {/* --- Updated Contact Sales Button with Link and Transitions --- */}
+              <Link href="/contact-sales" passHref legacyBehavior>
+                <Button asChild size="lg" className="bg-white text-[#0070f3] hover:bg-gray-100 hover:scale-[1.03] hover:shadow-md transition-transform duration-200 ease-in-out flex-1">
+                  <a> Contact Sales </a>
+                </Button>
+              </Link>
+          </div>
+           <p className="text-xs text-blue-200 mt-4">
+             {/* TODO: Add documentation link */} 
+              Or explore our <a href="#" className="underline underline-offset-2 hover:text-white">detailed documentation</a>.
+            </p>
+        </div>
       </section>
 
       {/* Footer Section */}
-      <footer className="text-center text-muted-foreground">
-        <nav className="mb-4">
-          <a href="#" className="mx-2 hover:underline">About</a>
-          <a href="#" className="mx-2 hover:underline">Contact</a>
-          <a href="#" className="mx-2 hover:underline">Privacy Policy</a>
-        </nav>
-        <p>© 2025 VoterData Insights</p>
-      </footer>
+      <footer className="py-8 md:py-10 border-t border-gray-200 bg-white">
+        <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+             <p>&copy; ${new Date().getFullYear()} VoterData Insights. All rights reserved.</p>
+             <nav className="flex gap-4 sm:gap-6 mt-4 md:mt-0 flex-wrap justify-center">
+               {/* --- Updated Footer Links --- */}
+               <Link href="/about" className="hover:text-[#0070f3] hover:underline">About</Link>
+               <Link href="/pricing" className="hover:text-[#0070f3] hover:underline">Pricing</Link>
+               <Link href="/contact" className="hover:text-[#0070f3] hover:underline">Contact</Link>
+               <Link href="/privacy-policy" className="hover:text-[#0070f3] hover:underline">Privacy Policy</Link>
+               <Link href="/terms-of-service" className="hover:text-[#0070f3] hover:underline">Terms of Service</Link>
+             </nav>
+        </div>
+       </footer>
     </div>
   );
 }
