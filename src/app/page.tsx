@@ -9,6 +9,7 @@ import {Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Table
 import {cn} from '@/lib/utils';
 import {useToast} from "@/hooks/use-toast";
 import { SparklesIcon, MapIcon, PackageIcon } from 'lucide-react';
+import Image from 'next/image';
 
 interface StateConstituency {
   state: string;
@@ -28,6 +29,34 @@ const stateConstituencies: StateConstituency[] = [
     state: "Punjab",
     constituencies: ["Amritsar", "Ludhiana", "Jalandhar", "Patiala", "Bathinda"],
   },
+  {
+    state: "Uttar Pradesh",
+    constituencies: ["Lucknow East", "Kanpur", "Varanasi", "Prayagraj", "Agra"],
+  },
+  {
+    state: "Maharashtra",
+    constituencies: ["Mumbai South", "Pune", "Nagpur", "Thane", "Nashik"],
+  },
+  {
+    state: "West Bengal",
+    constituencies: ["Kolkata North", "Bardhaman-Durgapur", "Howrah", "Medinipur", "Barrackpore"],
+  },
+  {
+    state: "Tamil Nadu",
+    constituencies: ["Chennai Central", "Coimbatore", "Madurai", "Tiruchirappalli", "Tirunelveli"],
+  },
+  {
+    state: "Karnataka",
+    constituencies: ["Bangalore Central", "Mysore", "Dharwad", "Gulbarga", "Belgaum"],
+  },
+  {
+    state: "Gujarat",
+    constituencies: ["Ahmedabad East", "Surat", "Vadodara", "Rajkot", "Bhavnagar"],
+  },
+  {
+    state: "Rajasthan",
+    constituencies: ["Jaipur", "Jodhpur", "Kota", "Ajmer", "Udaipur"],
+  },
 ];
 
 const FeatureCard = ({title, description, icon}: {title: string, description: string, icon: React.ReactNode}) => (
@@ -41,14 +70,15 @@ const FeatureCard = ({title, description, icon}: {title: string, description: st
   </Card>
 );
 
-const PricingCard = ({plan}: {plan: string}) => (
+const PricingCard = ({plan, price, description, onClick}: {plan: string, price: string, description: string, onClick: () => void}) => (
   <Card className="scale-up-on-hover">
     <CardHeader>
       <CardTitle>{plan}</CardTitle>
     </CardHeader>
     <CardContent>
-      <p className="text-muted-foreground">Price Placeholder</p>
-      <Button className="w-full">Request Quote</Button>
+      <p className="text-2xl font-bold mb-2">{price}</p>
+      <p className="text-muted-foreground mb-4">{description}</p>
+      <Button className="w-full" onClick={onClick}>Request Quote</Button>
     </CardContent>
   </Card>
 );
@@ -130,14 +160,25 @@ export default function Home() {
 
   const constituencies = stateConstituencies.find(sc => sc.state === selectedState)?.constituencies || [];
 
+  const handleLiveSampleClick = () => {
+      fetchData();
+  };
+
+  const handleRequestQuote = (plan: string) => {
+    toast({
+      title: "Request Sent",
+      description: `Quote requested for ${plan}. We will get back to you soon.`,
+    });
+  };
+
   return (
     <div className="container mx-auto py-12">
 
       {/* Hero Section */}
       <section className="mb-16 text-center">
         <h1 className="text-4xl font-bold mb-4">Unlock India’s Constituency-Level Voter Data</h1>
-        <p className="text-lg text-muted-foreground mb-8">Pure-random sampling frames, pre-parsed and ready for your research.</p>
-        <Button className="scale-up-on-hover">See a Live Sample</Button>
+        <p className="text-lg text-muted-foreground mb-8">Pure-random sampling frames, pre-parsed and ready for your research. Gain unparalleled insights with our meticulously curated database.</p>
+        <Button className="scale-up-on-hover" onClick={handleLiveSampleClick}>See a Live Sample</Button>
       </section>
 
       {/* Features Section */}
@@ -151,7 +192,7 @@ export default function Home() {
           />
           <FeatureCard
             title="True Random Sampling"
-            description="Extracted direct from official PDFs for audit-grade rigor."
+            description="Extracted directly from official PDFs for audit-grade rigor.  Our pure random sampling methodology ensures unbiased, representative data, eliminating selection bias. This rigorous approach provides market research companies with reliable insights, enhancing the accuracy and validity of their analyses and predictions."
             icon={<SparklesIcon className="mr-2 h-5 w-5 text-primary" />}
           />
           <FeatureCard
@@ -190,7 +231,7 @@ export default function Home() {
 
         <div className="overflow-x-auto">
           <Table ref={tableRef} className="min-w-full">
-            <TableCaption>Sample is blurred/truncated to protect full data integrity.</TableCaption>
+            <TableCaption>Sample is blurred/truncated to protect full data integrity. The data displayed is a sample from the Assembly Constituency (AC), which represents a specific geographic area for elections.</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead>AC No.</TableHead>
@@ -238,10 +279,37 @@ export default function Home() {
       <section className="mb-16">
         <h2 className="text-3xl font-semibold mb-8 text-center fade-in-slide-up">Pricing &amp; Bundles</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <PricingCard plan="State Bundle - All ACs in a state"/>
-          <PricingCard plan="District Bundle - All ACs in a district"/>
-          <PricingCard plan="Custom Bundle - Pick any 5 ACs"/>
+          <PricingCard
+            plan="State Bundle"
+            price="₹ 1 Lakh+"
+            description="Access all Assembly Constituencies (ACs) within a specific state. Pricing varies based on state population and data complexity."
+            onClick={() => handleRequestQuote("State Bundle")}
+          />
+          <PricingCard
+            plan="District Bundle"
+            price="₹ 50,000+"
+            description="Access all ACs within a specific district. Ideal for localized market research."
+            onClick={() => handleRequestQuote("District Bundle")}
+          />
+          <PricingCard
+            plan="Custom Bundle"
+            price="₹ 25,000+"
+            description="Select any 5 ACs of your choice. Perfect for targeted research needs."
+            onClick={() => handleRequestQuote("Custom Bundle")}
+          />
         </div>
+          <p className="text-muted-foreground text-center mt-4">
+              Note: Pricing is indicative and may vary.  We process over 1 Million+ PDFs to generate this data.  Contact us for a detailed quote.
+          </p>
+           <div className="flex justify-center mt-4">
+            <Image
+              src="https://picsum.photos/800/200" // Replace with your actual image URL
+              alt="Placeholder Image"
+              width={800} // Adjust as needed
+              height={200} // Adjust as needed
+              className="rounded-lg shadow-md"
+            />
+          </div>
       </section>
 
       {/* Footer Section */}
