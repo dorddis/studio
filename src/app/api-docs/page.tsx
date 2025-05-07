@@ -12,7 +12,7 @@ export default function ApiDocs() {
   const [activeTab, setActiveTab] = useState("overview");
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-16">
+    <div className="min-h-screen bg-gray-50">
       {/* Warning Banner */}
       <div className="bg-yellow-50 border-b border-yellow-100">
         <div className="container mx-auto px-4 py-3">
