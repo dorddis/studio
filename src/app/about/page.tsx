@@ -6,8 +6,8 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 text-gray-800">
-      <div className="container mx-auto py-12 px-4 md:px-6 flex-grow">
+    <div className="flex flex-col bg-gray-50 text-gray-800">
+      <div className="container mx-auto py-8 px-4 md:px-6">
         <Card className="max-w-3xl mx-auto">
           <CardHeader>
             <CardTitle className="text-3xl font-bold">About Us</CardTitle>
