@@ -10,7 +10,7 @@ export async function POST(request: Request) {
 
     // Send confirmation email to the user
     await resend.emails.send({
-      from: 'onboarding@resend.dev', // Resend's test sender email
+      from: 'VoterData Insights <contact@edownloaders.com>',
       to: email,
       subject: 'Thank you for contacting VoterData Insights',
       html: `
@@ -36,8 +36,8 @@ export async function POST(request: Request) {
 
     // Send notification email to the admin
     await resend.emails.send({
-      from: 'onboarding@resend.dev', // Resend's test sender email
-      to: 'delivered@resend.dev', // Resend's test recipient email
+      from: 'VoterData Insights <contact@edownloaders.com>',
+      to: 'admin@edownloaders.com',
       subject: 'New Contact Form Submission',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
