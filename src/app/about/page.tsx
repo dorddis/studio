@@ -3,8 +3,29 @@
 
 import Link from 'next/link';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import Skeleton from '@/components/ui/skeleton';
+import { useEffect, useState } from 'react';
 
 export default function AboutPage() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
+  if (loading) {
+    return (
+      <div className="container mx-auto py-12 px-4 md:px-6">
+        <div className="max-w-3xl mx-auto">
+          <Skeleton className="h-12 w-1/2 mb-4" />
+          <Skeleton className="h-6 w-3/4 mb-2" />
+          <Skeleton className="h-6 w-full mb-2" />
+          <Skeleton className="h-6 w-5/6 mb-2" />
+          <Skeleton className="h-6 w-2/3 mb-2" />
+          <Skeleton className="h-6 w-1/2 mb-2" />
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col bg-gray-50 text-gray-800">
       <div className="container mx-auto py-8 px-4 md:px-6">

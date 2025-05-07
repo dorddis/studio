@@ -4,6 +4,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
+import CookieConsent from '@/components/ui/cookie-consent';
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700'],
@@ -30,6 +31,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <Toaster />
+        <CookieConsent />
       </body>
     </html>
   );
